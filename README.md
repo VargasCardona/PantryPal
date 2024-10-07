@@ -1,35 +1,94 @@
-![logo](https://github.com/user-attachments/assets/6a948440-925d-4334-8e17-7cf2351d4108)
-# CRUD Exercise: FastAPI with Docker (Class management)
+![PantryPal](https://github.com/user-attachments/assets/899d7172-9799-459a-9328-b88b9ca6f062)
+# RecetApp - Microservices-based Recipe Management Application
+Microservices-based application designed to help users organize their cooking recipes, plan weekly menus, generate shopping lists based on selected recipes, and suggest recipes based on available ingredients in their pantry.
 
-This repository contains a simple CRUD (Create, Read, Update, Delete) exercise built using FastAPI for managing two independent entities: Person and Cat. The project is containerized using Docker for easy database setup and management, allowing seamless interaction with both entities.
-Features:
+## Table of Contents
+- [Project Description](#project-description)
+- [Microservices](#microservices)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Contributors](#contributors)
+- [License](#license)
 
-## Person Management:
-- Add, view, update, and delete person records.
-- Attributes include name, age, gender, and email.
+## Project Description
 
-## Cat Management:
-- Add, view, update, and delete cat records.
-- Attributes include name, breed, age, and color.
+RecetApp is a platform that streamlines meal planning and recipe management. The application is built using a microservices architecture to ensure scalability, maintainability, and flexibility. Users can create and manage recipes, plan menus, generate shopping lists, and receive recipe suggestions based on their available ingredients.
 
-## Independence:
-Person and Cat are two separate, unrelated classes.
+## Microservices
 
-## Technologies Used:
-- FastAPI: For building RESTful APIs.
-- Docker: To manage the database container.
-- [Database]: Managed through Docker, used for persistent data storage.
+1. **User Management Service**
+2. **Recipe Management Service**
+3. **Menu Planning Service**
+4. **Shopping List Generation Service**
+5. **Notification Service**
+6. **Pantry Management Service**
+7. **Recipe Suggestion Service**
 
-## How to Run:
+## Features
 
-- Clone the repository.
-- Build and start the Docker containers by running: `docker-compose up --build`
+### User Management:
+- User registration and authentication (JWT or OAuth2)
+- Profile management
+- Role-based access control for family/group accounts
 
-Access the API at `http://localhost:8000/docs` to interact with the CRUD operations.
-The ApiKey is: 4d631589-409c-4c7f-8729-c21064c4f242
+### Recipe Management:
+- Create, edit, and search recipes
+- Categorize recipes
+- Share recipes (public/private)
 
-Access the Adminer at `http://localhost:8080` to interact with the data base.
+### Menu Planning:
+- Plan daily or weekly meals
+- Create recurring menus
+- Calendar view for meal plans
 
+### Shopping List Generation:
+- Automatic compilation of ingredients for weekly menus
+- Ingredient categorization
+- Integration with online shopping services
+
+### Notifications:
+- Shopping reminders
+- Meal preparation reminders
+- Pantry item expiration alerts
+
+### Pantry Management:
+- Inventory tracking of available ingredients
+- Expiration date monitoring
+
+### Recipe Suggestions:
+- Suggest recipes based on available ingredients
+- Filter suggestions by meal type, difficulty, preparation time, etc.
+
+## Technologies Used
+
+- Microservices Architecture
+- RESTful APIs
+- JWT or OAuth2 for authentication
+- Database (to be determined: e.g., PostgreSQL, MongoDB)
+- Message Queue (e.g., RabbitMQ, Apache Kafka)
+- Docker for containerization
+- Kubernetes for orchestration (optional)
+
+## Getting Started
+
+### Prerequisites
+- [Docker](https://www.docker.com/get-started)
+
+### Installation
+1. Clone the repository:
+ ```
+git clone https://github.com/your-username/recetapp.git
+ ```
+2. Navigate to the project directory:
+ ```
+cd PantryPal
+ ```
 ## Contributors
-- Nicolás Vargas Cardona
-- Mateo Loaiza García
+
+- **Nicolás Vargas Cardona** - [GitHub Profile](https://github.com/VargasCardona)
+- **Mateo Loaiza García** - [GitHub Profile](https://github.com/Matthub05)
+
+## License
+
+This project is licensed under the GPL License. See the [LICENSE](LICENSE) file for details.
