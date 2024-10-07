@@ -1,0 +1,50 @@
+services:
+  db:
+    build: 
+      context: ./mysql
+      dockerfile: Dockerfile
+    container_name: database
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/volumes:/var/lib/mysql
+    hostname: crud_database
+    networks:
+      - net_crud_database
+    healthcheck:
+        test: ["CMD","mysql", "-u", "root", "-proot"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+# --------------------------------------------------------------------
+  # - The adminer is a tool for managing content in databases.
+  adminer:
+    image: adminer
+    container_name: adminer_crud
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - net_crud_database
+# --------------------------------------------------------------------
+  # - fastapi refers to the container where the application backend will be stored.
+  fastapi:
+    build: 
+      context: ./fast_api
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - net_crud_database
+# --------------------------------------------------------------------
+
+networks:
+  net_crud_database:
+      driver: bridge
+      name: net_crud_database
