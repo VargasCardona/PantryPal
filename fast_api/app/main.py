@@ -7,13 +7,12 @@ from starlette.responses import RedirectResponse
 
 # pylint: disable=import-error
 from helpers.api_key_auth import get_api_key
-from routes.person_route import person_route
-from routes.cat_route import cat_route
+from fast_api.app.routes.user_route import user_route
 
 # pylint: enable=import-error
 
 app = FastAPI(
-    title="Microservice of persons and little cats",
+    title="Microservice for PantryPal",
     version="2.0",
     contact={
         "name": "Nicolás Vargas Cardona - Mateo Loaiza García",
@@ -33,18 +32,10 @@ def read_root():
     return RedirectResponse(url="/docs")
 
 
-# -------- Person --------
+# -------- User --------
 app.include_router(
-    person_route,
-    prefix="/api/persons",
-    tags=["Persons"],
-    dependencies=[Depends(get_api_key)],
-)
-
-# -------- Cat --------
-app.include_router(
-    cat_route,
-    prefix="/api/cats",
-    tags=["Cats"],
+    user_route,
+    prefix="/api/users",
+    tags=["Users"],
     dependencies=[Depends(get_api_key)],
 )
