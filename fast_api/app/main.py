@@ -5,13 +5,32 @@ This module initializes the FastAPI application and sets up the database connect
 from fastapi import FastAPI, Depends
 from starlette.responses import RedirectResponse
 
+from contextlib import asynccontextmanager
+from config.database import database as connection
+
 # pylint: disable=import-error
 from helpers.api_key_auth import get_api_key
 from routes.user_route import user_route
 
 # pylint: enable=import-error
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Context manager that runs the startup and shutdown events of the FastAPI application.
+    """
+    if connection.is_closed():
+        connection.connect()
+    try:
+        yield
+    finally:
+        if not connection.is_closed():
+            connection.close()
+
+
 app = FastAPI(
+    lifespan=lifespan,
     title="Microservice for PantryPal",
     version="2.0",
     contact={

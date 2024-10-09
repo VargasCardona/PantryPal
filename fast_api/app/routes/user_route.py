@@ -23,7 +23,7 @@ Dependencies:
 from fastapi import APIRouter, Body
 
 # pylint: disable=import-error
-from database import UserModel
+from config.database import UserModel
 from models.user import User
 
 # pylint: enable=import-error
