@@ -24,7 +24,7 @@ from fastapi import APIRouter, Body
 
 # pylint: disable=import-error
 from database import UserModel
-from fast_api.app.models.user import User
+from models.user import User
 
 # pylint: enable=import-error
 

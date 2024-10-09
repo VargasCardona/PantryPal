@@ -32,8 +32,8 @@ class UserModel(Model):
     """
 
     id = AutoField(primary_key=True)
-    user = CharField(max_length=50, unique=True, min_length=4)
-    password = CharField(max_length=50, min_length=8)
+    user = CharField(max_length=50, unique=True)
+    password = CharField(max_length=50)
     full_name = CharField(max_length=50)
     profile_picture = CharField(max_length=50)
 

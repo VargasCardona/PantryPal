@@ -7,7 +7,7 @@ from starlette.responses import RedirectResponse
 
 # pylint: disable=import-error
 from helpers.api_key_auth import get_api_key
-from fast_api.app.routes.user_route import user_route
+from routes.user_route import user_route
 
 # pylint: enable=import-error
 
