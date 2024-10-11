@@ -9,7 +9,7 @@ Usage:
   It includes the User model and the necessary configuration to connect to the database.
 """
 
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, VARCHAR, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from config.settings import DATABASE
@@ -25,10 +25,10 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True)
-    password = Column(String)
-    full_name = Column(String)
-    profile_picture = Column(String)
+    username = Column(VARCHAR(100), unique=True)
+    password = Column(VARCHAR(100))
+    full_name = Column(VARCHAR(200))
+    profile_picture = Column(VARCHAR(100))
 
 
 # Database configuration

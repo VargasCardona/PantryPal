@@ -31,7 +31,7 @@ from models.user import User
 user_route = APIRouter()
 
 
-@user_route.post("/users/")
+@user_route.post("/")
 def create_users(user: User = Body(...)):
     """
     Create a new user.
@@ -52,7 +52,7 @@ def create_users(user: User = Body(...)):
     return {"message": "User created successfully"}
 
 
-@user_route.get("/users")
+@user_route.get("/")
 def get_users():
     """
     Retrieve a list of users from the database.
@@ -67,7 +67,7 @@ def get_users():
     return list(user)
 
 
-@user_route.get("/users/{user_id}")
+@user_route.get("/{user_id}")
 def get_user(user_id: int):
     """
     Retrieve a user by their ID.
@@ -86,7 +86,7 @@ def get_user(user_id: int):
         return {"error": "User not found"}
 
 
-@user_route.put("/users/{user_id}")
+@user_route.put("/{user_id}")
 def update_user(user_id: int, user: User = Body(...)):
     """
     Update a user by their ID.
@@ -106,7 +106,7 @@ def update_user(user_id: int, user: User = Body(...)):
     return {"message": "User updated successfully"}
 
 
-@user_route.delete("/users/{user_id}")
+@user_route.delete("/{user_id}")
 def delete_user(user_id: int):
     """
     Delete a user by their ID.
