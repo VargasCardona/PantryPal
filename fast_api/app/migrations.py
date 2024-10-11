@@ -25,7 +25,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    username = Column(VARCHAR(100), unique=True)
+    user = Column(VARCHAR(100), unique=True)
     password = Column(VARCHAR(100))
     full_name = Column(VARCHAR(200))
     profile_picture = Column(VARCHAR(100))

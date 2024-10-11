@@ -1,30 +1,25 @@
 """
 This module defines the routes for user-related operations in the FastAPI application.
 Routes:
-    - POST /users/: Create a new user.
-    - GET /users: Retrieve a list of all users.
-    - GET /users/{user_id}: Retrieve a specific user by their ID.
-    - PUT /users/{user_id}: Update a specific user by their ID.
-    - DELETE /users/{user_id}: Delete a specific user by their ID.
+    - POST /: Create a new user.
+    - GET /: Retrieve a list of users from the database.
+    - GET /{user_id}: Retrieve a user by their ID.
+    - PUT /{user_id}: Update a user by their ID.
+    - DELETE /{user_id}: Delete a user by their ID.
 Functions:
-    - create_users(user: User): Creates a new user with the provided details.
-    - get_users(): Retrieves a list of all users from the database.
-    - get_user(user_id: int): Retrieves a specific user by their ID. 
-      Returns an error message if the user is not found.
-    - update_user(user_id: int, user: User): Updates a specific user by their ID.
-    - delete_user(user_id: int): Deletes a specific user by their ID.
-Dependencies:
-    - UserModel: The database model for users.
-    - User: The Pydantic model for user data validation.
-    - APIRouter: FastAPI router for defining routes.
-    - Body: FastAPI dependency for parsing request bodies.
+    - create_users(user: UserCreate): Create a new user.
+    - get_users(): Retrieve a list of users from the database.
+    - get_user(user_id: int): Retrieve a user by their ID.
+    - update_user(user_id: int, user: UserUpdate): Update a user by their ID.
+    - delete_user(user_id: int): Delete a user by their ID.
 """
 
 from fastapi import APIRouter, Body
+from peewee import IntegrityError
 
 # pylint: disable=import-error
 from config.database import UserModel
-from models.user import User
+from models.user import UserCreate, UserUpdate
 
 # pylint: enable=import-error
 
@@ -32,7 +27,7 @@ user_route = APIRouter()
 
 
 @user_route.post("/")
-def create_users(user: User = Body(...)):
+def create_users(user: UserCreate = Body(...)):
     """
     Create a new user.
 
@@ -43,13 +38,16 @@ def create_users(user: User = Body(...)):
     Returns:
         None
     """
-    UserModel.create(
-        user=user.user,
-        password=user.password,
-        full_name=user.full_name,
-        profile_picture=user.profile_picture,
-    )
-    return {"message": "User created successfully"}
+    try:
+        UserModel.create(
+            user=user.user,
+            password=user.password,
+            full_name=user.full_name,
+            profile_picture=user.profile_picture,
+        )
+        return {"message": "User created successfully"}
+    except IntegrityError:
+        return {"error": "User already exists"}
 
 
 @user_route.get("/")
@@ -87,7 +85,7 @@ def get_user(user_id: int):
 
 
 @user_route.put("/{user_id}")
-def update_user(user_id: int, user: User = Body(...)):
+def update_user(user_id: int, user: UserUpdate = Body(...)):
     """
     Update a user by their ID.
 
@@ -98,12 +96,15 @@ def update_user(user_id: int, user: User = Body(...)):
     Returns:
         None
     """
-    UserModel.update(
-        password=user.password,
-        full_name=user.full_name,
-        profile_picture=user.profile_picture,
-    ).where(UserModel.id == user_id).execute()
-    return {"message": "User updated successfully"}
+    try:
+        UserModel.update(
+            password=user.password,
+            full_name=user.full_name,
+            profile_picture=user.profile_picture,
+        ).where(UserModel.id == user_id).execute()
+        return {"message": "User updated successfully"}
+    except UserModel.DoesNotExist:
+        return {"error": "User not found"}
 
 
 @user_route.delete("/{user_id}")
@@ -117,5 +118,8 @@ def delete_user(user_id: int):
     Returns:
         None
     """
-    UserModel.delete().where(UserModel.id == user_id).execute()
-    return {"message": "User deleted successfully"}
+    try:
+        UserModel.delete().where(UserModel.id == user_id).execute()
+        return {"message": "User deleted successfully"}
+    except UserModel.DoesNotExist:
+        return {"error": "User not found"}

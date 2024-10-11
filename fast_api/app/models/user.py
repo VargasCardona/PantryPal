@@ -13,3 +13,20 @@ class User(BaseModel):
     password: str
     full_name: str
     profile_picture: str
+
+
+class UserCreate(BaseModel):
+    """Pydantic model for creating a user."""
+
+    user: str
+    password: str
+    full_name: str
+    profile_picture: str
+
+
+class UserUpdate(BaseModel):
+    """Pydantic model for updating a user."""
+
+    password: str
+    full_name: str
+    profile_picture: str
