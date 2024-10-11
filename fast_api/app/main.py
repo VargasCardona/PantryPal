@@ -2,15 +2,15 @@
 This module initializes the FastAPI application and sets up the database connection
 """
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Depends
 from starlette.responses import RedirectResponse
-
-from contextlib import asynccontextmanager
-from config.database import database as connection
 
 # pylint: disable=import-error
 from helpers.api_key_auth import get_api_key
 from routes.user_route import user_route
+from config.database import database as connection
 
 # pylint: enable=import-error
 

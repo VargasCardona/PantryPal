@@ -12,11 +12,16 @@ Usage:
 from sqlalchemy import Column, Integer, VARCHAR, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+# pylint: disable=import-error
 from config.settings import DATABASE
+
+# pylint: enable=import-error
 
 Base = declarative_base()
 
 
+# pylint: disable=R0903
 class User(Base):
     """
     A class used to represent a user in the database.

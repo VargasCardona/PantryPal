@@ -10,7 +10,11 @@ from peewee import (
     Model,
     MySQLDatabase,
 )
+
+# pylint: disable=import-error
 from config.settings import DATABASE
+
+# pylint: enable=import-error
 
 
 database = MySQLDatabase(
