@@ -26,9 +26,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Instala todas las dependencias listadas en requirements.txt
 
-          #- name: Run Pylint on the whole project
-        #run: |
-          #pylint ./fast_api/  # Ejecuta Pylint en todos los archivos Python del proyecto
+      - name: Run Pylint on the whole project
+        run: |
+          pylint ./fast_api/  # Ejecuta Pylint en todos los archivos Python del proyecto
 
           #- name: Analysing the code with pylint
         # run: |
