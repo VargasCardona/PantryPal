@@ -34,9 +34,13 @@ services:
       context: ./fast_api
       dockerfile: Dockerfile
     container_name: backend
-    restart: always
+    command: /bin/bash -c "make run_migrations && uvicorn main:app --host 0.0.0.0 --port 80"
+    restart: on-failure
     ports:
       - "8000:80"
+    environment:
+      - DATABASE_URL=mysql+pymysql://user:password@db/dbname
+      - RUN_MIGRATIONS=false  # Set this to control migration running
     depends_on:
       db:
         condition: service_healthy

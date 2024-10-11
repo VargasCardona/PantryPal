@@ -11,5 +11,5 @@ run_migrations:
 	@docker exec -it backend /bin/bash -c "alembic stamp heads"
 	@docker exec -it backend /bin/bash -c "alembic revision --autogenerate -m '$(alembic_commit)"
 	@docker exec -it backend /bin/bash -c "alembic upgrade head"
-	@docker cp backend:/alembic/versions ./FastApi/app/alembic
+	@docker cp backend:/app/alembic/versions ./FastApi/app/alembic
 
