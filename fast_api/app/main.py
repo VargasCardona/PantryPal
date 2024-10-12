@@ -7,6 +7,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 from starlette.responses import RedirectResponse
 
+# pylint: disable=W0613, W0621
+# pylint: disable=W0613, W0613
 # pylint: disable=import-error
 from helpers.api_key_auth import get_api_key
 from routes.user_route import user_route
